@@ -113,5 +113,34 @@ function isAnagram(str1, str2) {
 // Change every letter of the string to the one that follows it and capitalize the vowels
 // Z should turn to A
 // ex. 'hello there' === 'Ifmmp UIfsf'
+function isVowel(char) {
+  const vowels = "aeiou".split("");
+  if (vowels.indexOf(char) !== -1) {
+    return char.toUpperCase();
+  }
+  return char;
+}
 
-function letterChanges(str) {}
+function letterChanges(str) {
+  let strArr = str.split("");
+  let result = [];
+  const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+
+  // 1) Transform the string in +1 idx
+  // 2) Capitalize the vowels
+
+  for (let char of strArr) {
+    const idx = alphabet.indexOf(char);
+    if (alphabet.length - 1 > idx) {
+      const charFound = alphabet[idx + 1];
+      const charTransformed = isVowel(charFound);
+      result.push(charTransformed);
+    } else {
+      const charTransformed = isVowel(alphabet[alphabet.length - 1 - idx]);
+      result.push(charTransformed);
+    }
+  }
+  return result;
+}
+
+console.log(letterChanges("aratx"));
