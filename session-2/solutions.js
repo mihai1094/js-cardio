@@ -44,6 +44,7 @@ function longestWordS3(words) {
       longestWord = word.length;
     }
   }
+
   multipleLongWords = Object.entries(charMap).filter(
     (charElement) => charElement[1] === longestWord
   );
@@ -58,20 +59,55 @@ function longestWordS3(words) {
 // ex. chunkArray([1, 2, 3, 4, 5, 6, 7], 3) === [[1, 2, 3],[4, 5, 6],[7]]
 // ex. chunkArray([1, 2, 3, 4, 5, 6, 7], 2) === [[1, 2],[3, 4],[5, 6],[7]]
 
-function chunkArray(arr, len) {}
+function chunkArray(arr, len) {
+  const result = [];
+  let holder = [];
+  // hold chunks of array
+  // calculate remaining array and add to final array
+
+  if (len > 0) {
+    for (let i = 0; i < arr.length; i++) {
+      if (holder.length === len) {
+        result.push(holder);
+        holder = [];
+        holder.push(arr[i]);
+      } else if (holder.length <= len) {
+        holder.push(arr[i]);
+      }
+    }
+    if (holder) {
+      result.push(holder);
+    }
+    return result;
+  }
+  return arr;
+}
 
 // CHALLENGE 3: FLATTEN ARRAY
 // Take an array of arrays and flatten to a single array
 // ex. [[1, 2], [3, 4], [5, 6], [7]] = [1, 2, 3, 4, 5, 6, 7]
-
-function flattenArray(arrays) {}
+// ES6 way
+function flattenArray(arrays) {
+  return arrays.flat();
+}
 
 // CHALLENGE 4: ANAGRAM
 // Return true if anagram and false if not
 // ex. 'elbow' === 'below'
 // ex. 'Dormitory' === 'dirty room##'
 
-function isAnagram(str1, str2) {}
+const mapper = (str) => {
+  const charArr = str.split("");
+  const charMap = {};
+  for (let i = 0; i < charArr.length; i++) {
+    charMap[i] = charArr[i];
+  }
+  return charMap;
+};
+
+function isAnagram(str1, str2) {
+  return str1.split("").sort().join("") === str2.split("").sort().join("");
+}
 
 // CHALLENGE 5: LETTER CHANGES
 // Change every letter of the string to the one that follows it and capitalize the vowels
